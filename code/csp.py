@@ -1,23 +1,14 @@
-# CSP role: REDUCE THE SEARCH SPACE before any pathfinding runs.
+# Reduces the search space before any pathfinding.
 #
-# How real CSP reduces search space:
-#   1. Constraint propagation: build a filtered graph that physically excludes
-#      blocked nodes and blocked edges. UCS/GA then only ever sees valid nodes
+# UCS/GA then only ever sees valid nodes
 #      and never wastes heap operations on dead-end expansions.
 #   2. Forward checking: before the search starts, verify every goal is
 #      reachable in the filtered graph. Fail fast instead of letting UCS
 #      exhaust the entire graph on a disconnected problem.
-#   3. The old approach (skipping blocked nodes INSIDE UCS) is inline
-#      filtering — it does NOT reduce search space because the priority queue
-#      still contains those nodes; UCS still pops and discards them.
-#      True CSP removes them from the graph structure entirely.
 
 def build_filtered_graph(nodes, blocked_nodes=frozenset(), blocked_edges=frozenset()):
-    """
-    This is the search-space reduction:
-      - Blocked nodes disappear entirely (their edges disappear too).
-      - Blocked edges are removed from both endpoints.
-    """
+#filtered graph physically excludes blocked nodes and blocked edges. 
+
     filtered = {}
     for name, vertex in nodes.items():
         if name in blocked_nodes:
@@ -34,11 +25,9 @@ def build_filtered_graph(nodes, blocked_nodes=frozenset(), blocked_edges=frozens
 
 
 def forward_check(filtered_graph, start, goals):
-    """
-    Forward checking: BFS reachability on the already-filtered graph.
-    Runs BEFORE the main search so we fail fast when a goal is disconnected.
-    Returns (ok, unreachable_goals).
-    """
+    #BFS reachability on the already-filtered graph.
+    # fails fast when a goal is disconnected as it is run before search starts
+
     unreachable = []
     for goal in goals:
         if goal not in filtered_graph:
@@ -63,7 +52,6 @@ def forward_check(filtered_graph, start, goals):
 
 def apply_csp(nodes, start, goals, blocked_nodes=frozenset(), blocked_edges=frozenset()):
     filtered = build_filtered_graph(nodes, blocked_nodes, blocked_edges)
-
     if start not in filtered:
         return filtered, False, f"Start node '{start}' is blocked or missing."
 

@@ -1,4 +1,4 @@
-# welcome.py
+# Displays the welcome screen and "Run Simulation" button
 
 import tkinter as tk
 from gui import GUI
@@ -9,16 +9,18 @@ class WelcomeScreen:
         self.root.title("Smart Delivery Routing (Hybrid Version)")
         self.root.geometry("800x650")
 
+        #Main canvas
         self.canvas = tk.Canvas(root, width=800, height=650, bg="#eaf6ff")
         self.canvas.pack(fill="both", expand=True)
 
+        # Title and subtitles
         self.canvas.create_text(400, 80,
-                                text="Intelligent Delivery & Logistics Routing",
+                                text="Intelligent Delivery & Logistics Routing System",
                                 font=("Segoe UI", 24, "bold"),
                                 fill="#2c3e50")
 
         self.canvas.create_text(400, 130,
-                                text="Multiple Goals UCS+CSP Hybrid Simulation",
+                                text="Multiple Goals Hybrid Simulation",
                                 font=("Segoe UI", 16),
                                 fill="#34495e")
 
@@ -26,7 +28,7 @@ class WelcomeScreen:
                                 text="Optimize delivery routes and explore dynamic logistics!",
                                 font=("Segoe UI", 14),
                                 fill="#2c3e50")
-
+        #Adding car image
         self.car_photo = tk.PhotoImage(file="car.png")
         self.car_photo = self.car_photo.subsample(3, 3)
 
@@ -43,6 +45,7 @@ class WelcomeScreen:
 
         self.canvas.create_window(400, 580, window=self.start_button)
 
+    # Destroying welcome canvas and launching the main routing GUI
     def run_system(self):
         self.canvas.destroy()
         GUI(self.root)

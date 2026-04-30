@@ -1,10 +1,11 @@
-import time
+# Tracks and compares routing algorithm performance across multiple runs.
 
-# Performance benchmarking for routing algorithms
-# Mirrors ML evaluation metrics applied to route optimisation:
-#   total_cost    ~ MSE  (lower is better)
-#   success_rate  ~ accuracy (proportion of valid solutions found)
+# Metrics (ML evaluations):
+#   total_cost    ~ MSE (lowest value)
+#   success_rate  ~ accuracy
 #   runtime       ~ inference time
+
+import time
 
 class Benchmark:
     def __init__(self):
@@ -36,15 +37,9 @@ class Benchmark:
         return result
 
     def summary(self):
-        """
-        Return a dict of per-algorithm aggregate metrics.
-        {
-          "UCS": {"runs": N, "success_rate": 0.9, "avg_cost": 12.3,
-                  "min_cost": 8.0, "avg_runtime_ms": 1.2},
-          "GA":  { ... }
-        }
-        """
+        
         from collections import defaultdict
+
         groups = defaultdict(list)
         for r in self.records:
             groups[r["algorithm"]].append(r)
@@ -81,6 +76,7 @@ class Benchmark:
             lines.append(f"  Avg Time     : {m['avg_runtime_ms']} ms")
         return "\n".join(lines)
 
+    # Return the most recent record for a given algorithm label
     def last(self, label):
         for r in reversed(self.records):
             if r["algorithm"] == label:

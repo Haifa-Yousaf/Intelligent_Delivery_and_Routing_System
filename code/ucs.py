@@ -1,7 +1,11 @@
+# UCS: finds shortest path based on edge cost
+
 import heapq
 from csp import build_filtered_graph
 
 def ucs_on_filtered(filtered_graph, start, goal):
+    # Dijkstra-style UCS on an already-filtered graph
+    
     if start not in filtered_graph or goal not in filtered_graph:
         return None, None
 
@@ -15,6 +19,8 @@ def ucs_on_filtered(filtered_graph, start, goal):
         current_cost, current = heapq.heappop(open_list)
 
         if current == goal:
+        # Reconstruct path by tracing back through came_from
+
             path, node = [], current
             while node in came_from:
                 path.append(node)
@@ -34,7 +40,7 @@ def ucs_on_filtered(filtered_graph, start, goal):
 
     return None, None
 
-
+#simply calls on the filtered graph and runs ucs
 def ucs(nodes, start, goal, blocked_nodes=frozenset(), blocked_edges=frozenset()):
 
     filtered = build_filtered_graph(nodes, blocked_nodes, blocked_edges)

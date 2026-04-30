@@ -1,4 +1,4 @@
-# main.py
+# Starts the Tkinter window and welcome screen.
 
 import tkinter as tk
 from welcome import WelcomeScreen

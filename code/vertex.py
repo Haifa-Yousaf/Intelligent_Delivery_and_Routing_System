@@ -1,4 +1,4 @@
-# vertex.py
+# Represents a single node (location) on the delivery map.
 
 class Vertex:
     def __init__(self, name, posx, posy):
