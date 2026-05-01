@@ -59,8 +59,7 @@ Users can add/delete nodes and edges, block roads, set a source and up to 8 deli
 ├── images/
 │   ├── car.png
 │   └── map.png
-└── docs/
-    └── report.pdf
+└── README.md
 ```
 
 ---
