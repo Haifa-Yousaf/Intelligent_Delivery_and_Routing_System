@@ -138,21 +138,3 @@ num_goals == 1?
             ├── YES → Hybrid
             └── NO  → Clustered
 ```
-
----
-
-## 🤖 ML Components Summary
-
-| Component | Type | Purpose |
-|-----------|------|---------|
-| `clustering.py` | Unsupervised (K-Means++) | Geographic zone partitioning |
-| `knn.py` | Instance-based (KNN) | Next-stop ordering within a zone |
-| `cost_regression.py` | Supervised (Linear Regression) | Pre-search cost prediction |
-| `decision_tree.py` | Rule-based Decision Tree | Algorithm selection |
-| `benchmark.py` | Evaluation | Runtime & cost tracking |
-
----
-
-## 📄 License
-
-This project is open-source and available under the [MIT License](LICENSE).
